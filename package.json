@@ -1,0 +1,26 @@
+{
+  "name": "xhs_pic_download",
+  "version": "1.0.0",
+  "description": "结合iOS的“快捷指令”, 一键从小红书下载无水印图片",
+  "main": "web.js",
+  "dependencies": {
+    "axios": "^1.4.0",
+    "express": "^4.18.2",
+    "https": "^1.0.0",
+    "cheerio": "1.0.0-rc.12"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nfe-w/xhs_pic_download.git"
+  },
+  "author": "",
+  "license": "MIT LICENSE",
+  "bugs": {
+    "url": "https://github.com/nfe-w/xhs_pic_download/issues"
+  },
+  "homepage": "https://github.com/nfe-w/xhs_pic_download#readme"
+}
