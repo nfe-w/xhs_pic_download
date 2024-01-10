@@ -90,8 +90,10 @@ async function getPicUrl(fullUrl, xhsCookie) {
   const resultObj = await findDom(responseData)
 
   let picIdArray = []
+  let note = null
   try {
-    const imageList = resultObj.note.noteDetailMap[resultObj.note.firstNoteId].note.imageList
+    note = resultObj.note.noteDetailMap[resultObj.note.firstNoteId].note
+    const imageList = note.imageList
     imageList.forEach((item) => {
       const tempUrl = item.infoList[0].url
       const splits = tempUrl.split('!')[0].split('/')
@@ -104,6 +106,22 @@ async function getPicUrl(fullUrl, xhsCookie) {
   let picUrlArray = []
   if (picIdArray && picIdArray.length > 0) {
     picIdArray.forEach((item) => picUrlArray.push(`https://ci.xiaohongshu.com/${item}?imageView2/2/w/0/format/png`))
+  }
+
+  let videoUrl = null
+  try {
+    const media = note.video.media
+    const streamType = media.video.streamTypes[0]
+    Object.entries(media.stream).forEach(([key, value]) => {
+      if (value.length > 0 && value[0].streamType === streamType) {
+        videoUrl = value[0].masterUrl
+      }
+    })
+  } catch (error) {
+    console.log(error)
+  }
+  if (videoUrl) {
+    picUrlArray.push(videoUrl)
   }
   return picUrlArray
 }
