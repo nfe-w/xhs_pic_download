@@ -33,16 +33,19 @@ async function getHeaders() {
     "sec-fetch-mode": "navigate",
     "sec-fetch-site": "none",
     "sec-fetch-user": "?1",
-    "upgrade-insecure-requests": "1"
+    "upgrade-insecure-requests": "1",
+    "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36",
   }
 }
 
 async function getFullURL(shortURLWithText) {
+  const headers = await getHeaders()
   // 正则表达式提取url
   const urlRegex = /(http[s]?:\/\/[^\s，]+)/;
   const shortURL = shortURLWithText.match(urlRegex)[0];
   try {
     const response = await axios.get(shortURL, {
+      headers,
       maxRedirects: 0
     })
     return shortURL
