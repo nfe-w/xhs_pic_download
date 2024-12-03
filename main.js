@@ -85,7 +85,6 @@ async function getPicUrl(fullUrl, xhsCookie) {
   if (xhsCookie) {
     headers['cookie'] = xhsCookie
   }
-  fullUrl = fullUrl.split('?')[0]
   const response = await axios.get(fullUrl, {
     headers
   })
