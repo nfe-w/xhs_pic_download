@@ -97,10 +97,13 @@ async function getPicUrl(fullUrl, xhsCookie) {
   try {
     note = resultObj.note.noteDetailMap[resultObj.note.firstNoteId].note
     imageList = note?.imageList || []
+    const regex = /https?:\/\/sns-webpic-qc\.xhscdn\.com\/\d+\/[0-9a-z]+\/(\S+)!/;
     imageList.forEach((item) => {
       const tempUrl = item.infoList[0].url
-      const splits = tempUrl.split('!')[0].split('/')
-      picIdArray.push(splits[splits.length - 1])
+      let match = tempUrl.match(regex)
+      if (match && match[1]) {
+        picIdArray.push(match[1])
+      }
     })
   } catch (error) {
     console.log(error)
