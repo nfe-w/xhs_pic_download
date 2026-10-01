@@ -1,4 +1,4 @@
-FROM node:16-alpine
+FROM node:22-alpine
 
 ENV TZ=Asia/Shanghai
 
@@ -6,7 +6,7 @@ WORKDIR /app
 
 COPY . /app/
 
-RUN npm install --production && \
+RUN npm ci --omit=dev && \
     npm cache clean --force
 
 EXPOSE 7776
