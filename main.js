@@ -43,6 +43,11 @@ async function getFullURL(shortURLWithText) {
   // 正则表达式提取url
   const urlRegex = /(http[s]?:\/\/[^\s，]+)/;
   const shortURL = shortURLWithText.match(urlRegex)[0];
+  // 笔记链接直接交给携带 Cookie 的请求，避免匿名预请求跳到登录页
+  const hostname = new URL(shortURL).hostname;
+  if (hostname === 'www.xiaohongshu.com' || hostname === 'xiaohongshu.com') {
+    return shortURL
+  }
   try {
     const response = await axios.get(shortURL, {
       headers,
@@ -111,7 +116,7 @@ async function getPicUrl(fullUrl, xhsCookie) {
   }
   let picUrlArray = []
   if (picIdArray && picIdArray.length > 0) {
-    picIdArray.forEach((item) => picUrlArray.push(`https://ci.xiaohongshu.com/${item}?imageView2/2/w/0/format/png`))
+    picIdArray.forEach((item) => picUrlArray.push(`https://ci.xiaohongshu.com/${item}`))
   }
 
   imageList.forEach((item) => {
